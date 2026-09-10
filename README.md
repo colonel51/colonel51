@@ -26,11 +26,24 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 <br>
 
-## 🔒 Öne Çıkan Private Projeler
+## 🌟 Bayrak Proje: Pizza Pizza Cyprus — Restoran Yönetim Sistemi
+
+Kıbrıs'ta canlı olarak kullanılan, çoklu şube destekli restoran yönetim platformu. **7 farklı kullanıcı rolü** (Admin, Call Center, Manager, Cook, Courier, Cashier, Customer) için ayrı arayüzler; web, kiosk ve call-center kanallarından gelen siparişleri tek noktada yönetiyor.
+
+- 🔴 **Gerçek zamanlı:** Django Channels + Redis üzerinde 6 farklı WebSocket consumer ile anlık sipariş/bildirim/teslimat akışı
+- 🧩 **Ölçek:** 34 Django modeli · 100+ API endpoint · ~22.600 satır Python + ~30.500 satır TypeScript
+- 🔐 **Güvenlik:** JWT auth, scoped rate limiting, audit logging, 24 SQL injection regresyon testi
+- 🏗️ **Mimari:** Clean Architecture (Domain / Application / Infrastructure / Interface katmanları), Repository & DTO pattern
+- 💳 Kupon sistemi, veresiye/ödeme yönetimi, değerlendirme & favoriler, çoklu şube menü/transfer yönetimi, i18n desteği
+
+`Django 4.2 · DRF · Channels · Daphne · Celery · Redis · MySQL · React 19 · TypeScript · Redux Toolkit · Docker · Nginx`
+
+<br>
+
+## 🔒 Diğer Private Projeler
 
 | Proje | Açıklama | Teknolojiler | Durum |
 |---|---|---|---|
-| **Pizza Pizza Cyprus — Restoran Yönetim Sistemi** | Çoklu şube desteği, rol bazlı paneller (admin/call center/kurye/kasiyer), Django Channels + Redis üzerinde gerçek zamanlı sipariş takibi, Celery ile asenkron bildirimler. Web, kiosk ve call-center kanallarında canlı olarak kullanılıyor. | Django · Channels · Celery · Redis · React (TS) · Docker | 🟢 Production |
 | **Ramot — Algoritmik Trading Platformu** | Binance (kripto) ve XAUUSDT (altın) için otomatik trading botları çalıştıran multi-tenant SaaS. RSI/MACD/Bollinger/ATR tabanlı sinyal motorları, otomatik risk yönetimi (trailing stop, likidasyon koruması, drawdown limitleri), sinyal güven skorlaması için Anthropic API entegrasyonu ve gerçek zamanlı React dashboard. Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğrulandı. | Django REST + Channels · Celery · Redis · PostgreSQL · React (TS) · Anthropic API | 🟢 Aktif |
 | **El İşi Üreticileri için Multi-Tenant ERP** | Küçük ölçekli el işi üreticileri için malzeme, ürün, satış ve görev yönetimi sağlayan SaaS. Clean Architecture ile katmanlı mimari, JWT auth ve tenant izolasyonu. | Django REST Framework · React · JWT | 🟢 Aktif |
 | **SaaS Starter Kit** | Multi-tenant SaaS ürünleri için yeniden kullanılabilir Django + React/TS başlangıç altyapısı (auth, Docker, temel proje iskeleti). | Django · React (TS) · Docker | 🟡 Bakımda |
