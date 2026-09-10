@@ -40,12 +40,11 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 <br>
 
-## 📊 GitHub İstatistikleri
+## 📊 Genel Bakış
 
-<p>
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=colonel51&show_icons=true&count_private=true&hide_title=true&theme=default" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=colonel51&layout=compact&count_private=true&hide_title=true" />
-</p>
+- 🔒 **9** aktif private proje (üzerine çalışılan tarih aralığı: 09.2025 – 09.2026)
+- 🧩 Ağırlıklı diller: **TypeScript** (~%42) · **Python** (~%34) · **CSS** (~%9) · **JavaScript** (~%6)
+- 🏗️ Backend'de **Django/DRF**, frontend'de **React + TypeScript**, altyapıda **Docker · PostgreSQL/MySQL · Redis**
 
 <br>
 
