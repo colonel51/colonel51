@@ -56,6 +56,20 @@ A platform I designed to run a multi-branch restaurant chain's order flow end-to
 - 🔐 **Security by design:** A dedicated audit log for critical operations, XSS protection, and automatic secret rotation — built into the system from the start, not bolted on.
 - ⚙️ **Async processing:** Work that shouldn't block the user, like notifications, runs in the background via Celery; Redis serves as both the cache and the WebSocket messaging layer.
 
+**Order flow**
+
+```mermaid
+graph TD
+    Client[Web / Kiosk / Call Center] -->|POST order| API(Django REST API)
+    API -->|Write| DB[(MySQL)]
+    API -->|Async task| Celery[Celery Worker]
+    API -->|Publish event| Redis[(Redis Pub/Sub)]
+    Celery -->|SMS / Email| Notif[Notification Service]
+    Redis -->|Broadcast| Channels[Django Channels]
+    Channels -->|WebSocket: preparing/ready| Kitchen[Kitchen Screen]
+    Channels -->|WebSocket: on the way| Courier[Courier App]
+```
+
 </details>
 
 <br>
@@ -76,6 +90,20 @@ A multi-tenant platform where each user connects their own exchange account, run
 - 🔴 **Real-time dashboard:** I stream live positions and price ticks to the React frontend over WebSocket via Django Channels.
 - 🔐 **Per-user security:** Each user's exchange API keys are stored encrypted in the database, protected by JWT + 2FA.
 - ✅ Validated end-to-end through live trading across several independently connected accounts, alongside extensive backtesting.
+
+**Signal & execution flow**
+
+```mermaid
+graph LR
+    Beat[Celery Beat] -->|60s / 5min trigger| Engine(Signal & Trade Engine)
+    Engine <-->|price & orders| Binance[Exchange API]
+    Engine -->|indicator data| AI[Anthropic API]
+    AI -->|confidence score| Engine
+    Engine -->|state update| DB[(PostgreSQL)]
+    Engine -->|publish state| Redis[(Redis)]
+    Redis -->|WebSocket| Channels[Django Channels]
+    Channels -->|live positions & price| React[React Dashboard]
+```
 
 </details>
 
@@ -153,6 +181,20 @@ Beyond these, here are the highlights from the 9 private repos I actively work o
 - 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı bir denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı kurdum.
 - ⚙️ **Asenkron işleyiş:** Bildirim gibi kullanıcıyı bekletmemesi gereken işleri Celery ile arka planda çalıştırıyorum; Redis'i hem cache hem WebSocket mesajlaşma katmanı olarak kullanıyorum.
 
+**Sipariş akışı**
+
+```mermaid
+graph TD
+    Client[Web / Kiosk / Call Center] -->|Sipariş POST| API(Django REST API)
+    API -->|Veri yazma| DB[(MySQL)]
+    API -->|Asenkron görev| Celery[Celery Worker]
+    API -->|Event publish| Redis[(Redis Pub/Sub)]
+    Celery -->|SMS / E-posta| Notif[Bildirim Servisi]
+    Redis -->|Broadcast| Channels[Django Channels]
+    Channels -->|WebSocket: hazırlanıyor/hazır| Kitchen[Mutfak Ekranı]
+    Channels -->|WebSocket: yolda| Courier[Kurye Uygulaması]
+```
+
 </details>
 
 <br>
@@ -173,6 +215,20 @@ Her kullanıcının kendi borsa hesabını bağladığı, Binance (kripto) ve XA
 - 🔴 **Gerçek zamanlı dashboard:** Django Channels üzerinden canlı pozisyon ve fiyat akışını React arayüzüne WebSocket ile taşıyorum.
 - 🔐 **Kullanıcı bazlı güvenlik:** Her kullanıcının borsa API anahtarları veritabanında şifreli tutuluyor; JWT + 2FA ile korunuyor.
 - ✅ Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğruladım, kapsamlı backtesting ile destekledim.
+
+**Sinyal ve işlem akışı**
+
+```mermaid
+graph LR
+    Beat[Celery Beat] -->|60sn / 5dk tetikleme| Engine(Sinyal & Trade Motoru)
+    Engine <-->|fiyat & işlem| Binance[Borsa API]
+    Engine -->|indikatör verisi| AI[Anthropic API]
+    AI -->|güven skoru| Engine
+    Engine -->|durum güncelleme| DB[(PostgreSQL)]
+    Engine -->|state publish| Redis[(Redis)]
+    Redis -->|WebSocket| Channels[Django Channels]
+    Channels -->|canlı pozisyon & fiyat| React[React Dashboard]
+```
 
 </details>
 
