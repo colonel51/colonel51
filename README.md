@@ -26,17 +26,17 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 <br>
 
-## 🌟 Bayrak Proje: Pizza Pizza Cyprus — Restoran Yönetim Sistemi
+## 🌟 Bayrak Proje: Restoran Yönetim Sistemi
 
-Kıbrıs'ta canlı olarak kullanılan, çoklu şube destekli restoran yönetim platformu. **7 farklı kullanıcı rolü** (Admin, Call Center, Manager, Cook, Courier, Cashier, Customer) için ayrı arayüzler; web, kiosk ve call-center kanallarından gelen siparişleri tek noktada yönetiyor.
+Çoklu şubeli bir restoran zincirinin sipariş akışını uçtan uca yöneten, canlı ortamda kullanılan bir platform. Web, kiosk ve call-center kanallarından gelen siparişleri tek bir gerçek zamanlı akışta birleştirip **7 farklı kullanıcı rolüne** (Admin, Call Center, Şube Müdürü, Aşçı, Kurye, Kasiyer, Müşteri) role özel, anlık bilgi akışı sağlıyor.
 
-- 🔴 **Gerçek zamanlı:** Django Channels + Redis üzerinde 6 farklı WebSocket consumer ile anlık sipariş/bildirim/teslimat akışı
-- 🧩 **Ölçek:** 34 Django modeli · 100+ API endpoint · ~22.600 satır Python + ~30.500 satır TypeScript
-- 🔐 **Güvenlik:** JWT auth, scoped rate limiting, audit logging, 24 SQL injection regresyon testi
-- 🏗️ **Mimari:** Clean Architecture (Domain / Application / Infrastructure / Interface katmanları), Repository & DTO pattern
-- 💳 Kupon sistemi, veresiye/ödeme yönetimi, değerlendirme & favoriler, çoklu şube menü/transfer yönetimi, i18n desteği
+- 🔴 **Senkronizasyon:** Sipariş oluşturulduğu andan teslim edilene kadar her durum değişikliği (hazırlanıyor → hazır → yolda → teslim edildi) WebSocket üzerinden ilgili role anında yayınlanıyor — sayfa yenilemeye gerek kalmadan mutfak, kurye ve müşteri ekranları senkron kalıyor.
+- 🏗️ **Mimari:** Domain / Application / Infrastructure / Interface olarak ayrılmış katmanlı (Clean) mimari; iş kuralları (services) veri erişiminden (repository implementasyonları) tamamen izole — bu da test edilebilirliği ve altyapı değişikliklerine karşı dayanıklılığı artırıyor.
+- 🔁 **Şubeler arası operasyon:** Sipariş transferi, şubeler arası birinci sınıf bir iş akışı olarak modellenmiş; yoğunluk/kapasite durumunda sipariş başka bir şubeye anlık devredilebiliyor.
+- 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı — güvenlik sonradan eklenen değil, sistemin parçası olarak tasarlanmış.
+- ⚙️ **Asenkron işleyiş:** Bildirim gibi kullanıcıyı bekletmemesi gereken işler Celery ile arka planda yürütülüyor; Redis hem cache hem WebSocket mesajlaşma katmanı olarak kullanılıyor.
 
-`Django 4.2 · DRF · Channels · Daphne · Celery · Redis · MySQL · React 19 · TypeScript · Redux Toolkit · Docker · Nginx`
+`Django · DRF · Channels · Celery · Redis · MySQL · React · TypeScript · Docker · Nginx`
 
 <br>
 
