@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="assets/banner-dark.svg#gh-dark-mode-only" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
-  <img src="assets/banner-light.svg#gh-light-mode-only" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
+  <img src="assets/banner.svg" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
 </p>
 
 <p align="right"><b>🇬🇧 English</b> · <a href="#turkce">🇹🇷 Türkçe</a></p>
