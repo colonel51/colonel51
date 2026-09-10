@@ -1,4 +1,110 @@
-### Merhaba, ben Ramazan 👋
+<p align="center">
+  <img src="assets/banner-dark.svg#gh-dark-mode-only" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
+  <img src="assets/banner-light.svg#gh-light-mode-only" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
+</p>
+
+<p align="right"><b>🇬🇧 English</b> · <a href="#turkce">🇹🇷 Türkçe</a></p>
+
+<a id="english"></a>
+
+### 👋 Hi, I'm Ramazan
+
+**Backend & Full-Stack Developer.** I build production systems with Python/Django and own them end-to-end, from architecture to deployment.
+
+`🏢 Multi-branch/multi-tenant` `⚡ Real-time (WebSocket)` `⚙️ Async (Celery/Redis)` `🗄️ Database performance` `🐳 Docker/Linux`
+
+I'm currently solely responsible for the architecture, development, and deployment of four concurrent production systems at **Near East Technology**, alongside my own personal/freelance projects. My GitHub looks empty from the outside because most of it is **private** — here's a summary of what I've actually been building.
+
+<br>
+
+## 🛠️ Tech Stack
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/Django%20REST-ff1709?style=for-the-badge&logo=django&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+
+<br>
+
+## 🌟 Flagship Projects
+
+### Restaurant Management System
+
+A platform I designed to run a multi-branch restaurant chain's order flow end-to-end, currently live in production. I unify orders coming from web, kiosk, and call-center channels into a single real-time stream, giving **7 different user roles** role-specific, instant updates.
+
+`Django · Channels · Celery · Redis · MySQL · React · TypeScript · Docker`
+
+<details>
+<summary>Details</summary>
+<br>
+
+- 🔴 **Synchronization:** From the moment an order is placed until it's delivered, every status change (preparing → ready → on the way → delivered) is broadcast instantly to the relevant role over WebSocket — kitchen, courier, and customer screens stay in sync without a page refresh.
+- 🏗️ **Architecture:** I built a layered (Clean) architecture split into Domain / Application / Infrastructure / Interface; business rules (services) are fully isolated from data access (repository implementations).
+- 🔁 **Cross-branch operations:** I modeled order transfer as a first-class workflow across branches — an order can be instantly reassigned to another branch during capacity issues.
+- 🔐 **Security by design:** A dedicated audit log for critical operations, XSS protection, and automatic secret rotation — built into the system from the start, not bolted on.
+- ⚙️ **Async processing:** Work that shouldn't block the user, like notifications, runs in the background via Celery; Redis serves as both the cache and the WebSocket messaging layer.
+
+</details>
+
+<br>
+
+### Ramot — Algorithmic Trading Platform
+
+A multi-tenant platform where each user connects their own exchange account, running automated trading bots on Binance (crypto) and XAUUSDT (gold). I integrated the Anthropic API for trade-signal confidence scoring, making risk/leverage decisions data-driven.
+
+`Django REST + Channels · Celery · Redis · PostgreSQL · React · TypeScript · Anthropic API`
+
+<details>
+<summary>Details</summary>
+<br>
+
+- 🤖 **Two independent bots:** CryptoBot runs every 60 seconds, GoldBot every 5 minutes — each on its own cycle, scheduled separately via Celery beat.
+- 🧠 **AI-assisted signal scoring:** I feed RSI/MACD/Bollinger/ATR-based signals through the Anthropic API for confidence scoring, which directly drives position sizing and leverage decisions.
+- 🛡️ **Automated risk management:** Trailing stops, liquidation guards, daily loss and max-drawdown limits; the gold bot adds session (London/NY/Asia) and ADX filters.
+- 🔴 **Real-time dashboard:** I stream live positions and price ticks to the React frontend over WebSocket via Django Channels.
+- 🔐 **Per-user security:** Each user's exchange API keys are stored encrypted in the database, protected by JWT + 2FA.
+- ✅ Validated end-to-end through live trading across several independently connected accounts, alongside extensive backtesting.
+
+</details>
+
+<br>
+
+## 🔒 Other Projects
+
+Beyond these, here are the highlights from the 9 private repos I actively work on:
+
+| Project | Description | Tech | Status |
+|---|---|---|---|
+| **Multi-Tenant ERP for Craft Manufacturers** | A SaaS I built for small-scale craft manufacturers to manage materials, products, sales, and tasks. I built a layered Clean Architecture, JWT auth, and tenant isolation. | Django REST Framework · React · JWT | 🟢 Active |
+| **SaaS Starter Kit** | A reusable Django + React/TS starter kit (auth, Docker, base project scaffold) I built for multi-tenant SaaS products. | Django · React (TS) · Docker | 🟡 Maintenance |
+| **Corporate Website — Automotive Tire Industry** | A corporate site with a management panel I built for an automotive tire company. | Django · React (TS) | ✅ Delivered |
+| **Corporate Website — Metal Industry** | A Django-based corporate website I built for a metal industry company. | Django · HTML/CSS · JavaScript | ✅ Delivered |
+| **Personal Portfolio** | My own Django-based portfolio site, deployed to production with Nginx + systemd. | Django · Nginx · Shell | 🟢 Active |
+| **100 Days of Python** | My Jupyter Notebook-based practice notebooks for reinforcing Python fundamentals. | Python · Jupyter Notebook | 📚 Learning |
+| **Python Exercises** | My basic Python practice scripts (conditionals, loops, logical operators, small apps). | Python | 📚 Learning |
+
+<br>
+
+## 📫 Contact
+
+📧 rkarsanba0@gmail.com
+
+<br><br>
+
+---
+
+<a id="turkce"></a>
+
+<p align="right"><a href="#english">🇬🇧 English</a> · <b>🇹🇷 Türkçe</b></p>
+
+### 👋 Merhaba, ben Ramazan
 
 **Backend & Full-Stack Developer.** Python/Django ile production sistemler geliştiriyor ve mimariden deploy'a kadar tek başıma işletiyorum.
 
@@ -69,7 +175,7 @@ Her kullanıcının kendi borsa hesabını bağladığı, Binance (kripto) ve XA
 
 ## 🔒 Diğer Projeler
 
-Bunların dışında üzerinde çalıştığım/çalıştığım 9 private repo'dan öne çıkanlar:
+Bunların dışında üzerinde çalıştığım 9 private repo'dan öne çıkanlar:
 
 | Proje | Açıklama | Teknolojiler | Durum |
 |---|---|---|---|
