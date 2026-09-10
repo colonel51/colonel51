@@ -28,13 +28,13 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 ## 🌟 Bayrak Proje: Restoran Yönetim Sistemi
 
-Çoklu şubeli bir restoran zincirinin sipariş akışını uçtan uca yöneten, canlı ortamda kullanılan bir platform. Web, kiosk ve call-center kanallarından gelen siparişleri tek bir gerçek zamanlı akışta birleştirip **7 farklı kullanıcı rolüne** (Admin, Call Center, Şube Müdürü, Aşçı, Kurye, Kasiyer, Müşteri) role özel, anlık bilgi akışı sağlıyor.
+Çoklu şubeli bir restoran zincirinin sipariş akışını uçtan uca yönetmek için tasarladığım, canlı ortamda kullanılan bir platform. Web, kiosk ve call-center kanallarından gelen siparişleri tek bir gerçek zamanlı akışta birleştirip **7 farklı kullanıcı rolüne** (Admin, Call Center, Şube Müdürü, Aşçı, Kurye, Kasiyer, Müşteri) role özel, anlık bilgi akışı sağlıyorum.
 
-- 🔴 **Senkronizasyon:** Sipariş oluşturulduğu andan teslim edilene kadar her durum değişikliği (hazırlanıyor → hazır → yolda → teslim edildi) WebSocket üzerinden ilgili role anında yayınlanıyor — sayfa yenilemeye gerek kalmadan mutfak, kurye ve müşteri ekranları senkron kalıyor.
-- 🏗️ **Mimari:** Domain / Application / Infrastructure / Interface olarak ayrılmış katmanlı (Clean) mimari; iş kuralları (services) veri erişiminden (repository implementasyonları) tamamen izole — bu da test edilebilirliği ve altyapı değişikliklerine karşı dayanıklılığı artırıyor.
-- 🔁 **Şubeler arası operasyon:** Sipariş transferi, şubeler arası birinci sınıf bir iş akışı olarak modellenmiş; yoğunluk/kapasite durumunda sipariş başka bir şubeye anlık devredilebiliyor.
-- 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı — güvenlik sonradan eklenen değil, sistemin parçası olarak tasarlanmış.
-- ⚙️ **Asenkron işleyiş:** Bildirim gibi kullanıcıyı bekletmemesi gereken işler Celery ile arka planda yürütülüyor; Redis hem cache hem WebSocket mesajlaşma katmanı olarak kullanılıyor.
+- 🔴 **Senkronizasyon:** Sipariş oluşturulduğu andan teslim edilene kadar her durum değişikliğini (hazırlanıyor → hazır → yolda → teslim edildi) WebSocket üzerinden ilgili role anında yayınlıyorum — sayfa yenilemeye gerek kalmadan mutfak, kurye ve müşteri ekranları senkron kalıyor.
+- 🏗️ **Mimari:** Domain / Application / Infrastructure / Interface olarak katmanlı (Clean) bir mimari kurdum; iş kurallarını (services) veri erişiminden (repository implementasyonları) tamamen izole ettim — bu da test edilebilirliği ve altyapı değişikliklerine karşı dayanıklılığı artırıyor.
+- 🔁 **Şubeler arası operasyon:** Sipariş transferini şubeler arası birinci sınıf bir iş akışı olarak modelledim; yoğunluk/kapasite durumunda sipariş başka bir şubeye anlık devredilebiliyor.
+- 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı bir denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı kurdum — güvenliği sonradan eklenen değil, sistemin bir parçası olarak tasarladım.
+- ⚙️ **Asenkron işleyiş:** Bildirim gibi kullanıcıyı bekletmemesi gereken işleri Celery ile arka planda çalıştırıyorum; Redis'i hem cache hem WebSocket mesajlaşma katmanı olarak kullanıyorum.
 
 `Django · DRF · Channels · Celery · Redis · MySQL · React · TypeScript · Docker · Nginx`
 
@@ -44,14 +44,14 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 | Proje | Açıklama | Teknolojiler | Durum |
 |---|---|---|---|
-| **Ramot — Algoritmik Trading Platformu** | Binance (kripto) ve XAUUSDT (altın) için otomatik trading botları çalıştıran multi-tenant SaaS. RSI/MACD/Bollinger/ATR tabanlı sinyal motorları, otomatik risk yönetimi (trailing stop, likidasyon koruması, drawdown limitleri), sinyal güven skorlaması için Anthropic API entegrasyonu ve gerçek zamanlı React dashboard. Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğrulandı. | Django REST + Channels · Celery · Redis · PostgreSQL · React (TS) · Anthropic API | 🟢 Aktif |
-| **El İşi Üreticileri için Multi-Tenant ERP** | Küçük ölçekli el işi üreticileri için malzeme, ürün, satış ve görev yönetimi sağlayan SaaS. Clean Architecture ile katmanlı mimari, JWT auth ve tenant izolasyonu. | Django REST Framework · React · JWT | 🟢 Aktif |
-| **SaaS Starter Kit** | Multi-tenant SaaS ürünleri için yeniden kullanılabilir Django + React/TS başlangıç altyapısı (auth, Docker, temel proje iskeleti). | Django · React (TS) · Docker | 🟡 Bakımda |
-| **Kurumsal Web Sitesi — Oto Lastik Sektörü** | Bir oto lastik firması için geliştirilen kurumsal tanıtım ve yönetim paneli içeren web sitesi. | Django · React (TS) | ✅ Teslim edildi |
-| **Kurumsal Web Sitesi — Metal Sektörü** | Bir metal sektörü firması için Django tabanlı kurumsal web sitesi. | Django · HTML/CSS · JavaScript | ✅ Teslim edildi |
-| **Kişisel Portfolyo** | Nginx + systemd servisiyle production'a alınmış, kendi Django tabanlı portfolyo sitem. | Django · Nginx · Shell | 🟢 Aktif |
-| **100 Days of Python** | Python temellerini pekiştirmek için hazırladığım Jupyter Notebook tabanlı alıştırma/çalışma defterleri. | Python · Jupyter Notebook | 📚 Öğrenme |
-| **Python Alıştırmaları** | Temel Python pratik scriptleri (koşullar, döngüler, mantıksal operatörler, küçük uygulamalar). | Python | 📚 Öğrenme |
+| **Ramot — Algoritmik Trading Platformu** | Binance (kripto) ve XAUUSDT (altın) için otomatik trading botları çalıştıran multi-tenant bir SaaS geliştirdim. RSI/MACD/Bollinger/ATR tabanlı sinyal motorları yazdım, otomatik risk yönetimi (trailing stop, likidasyon koruması, drawdown limitleri) kurdum, sinyal güven skorlaması için Anthropic API'yi entegre ettim ve gerçek zamanlı bir React dashboard geliştirdim. Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğruladım. | Django REST + Channels · Celery · Redis · PostgreSQL · React (TS) · Anthropic API | 🟢 Aktif |
+| **El İşi Üreticileri için Multi-Tenant ERP** | Küçük ölçekli el işi üreticileri için malzeme, ürün, satış ve görev yönetimi sağlayan bir SaaS geliştirdim. Clean Architecture ile katmanlı bir mimari kurdum, JWT auth ve tenant izolasyonu ekledim. | Django REST Framework · React · JWT | 🟢 Aktif |
+| **SaaS Starter Kit** | Multi-tenant SaaS ürünlerinde tekrar kullanmak üzere bir Django + React/TS başlangıç altyapısı (auth, Docker, temel proje iskeleti) geliştirdim. | Django · React (TS) · Docker | 🟡 Bakımda |
+| **Kurumsal Web Sitesi — Oto Lastik Sektörü** | Bir oto lastik firması için kurumsal tanıtım ve yönetim paneli içeren bir web sitesi geliştirdim. | Django · React (TS) | ✅ Teslim edildi |
+| **Kurumsal Web Sitesi — Metal Sektörü** | Bir metal sektörü firması için Django tabanlı bir kurumsal web sitesi geliştirdim. | Django · HTML/CSS · JavaScript | ✅ Teslim edildi |
+| **Kişisel Portfolyo** | Kendi Django tabanlı portfolyo sitemi Nginx + systemd servisiyle production'a aldım. | Django · Nginx · Shell | 🟢 Aktif |
+| **100 Days of Python** | Python temellerimi pekiştirmek için hazırladığım Jupyter Notebook tabanlı alıştırma/çalışma defterlerim. | Python · Jupyter Notebook | 📚 Öğrenme |
+| **Python Alıştırmaları** | Temel Python pratik scriptlerim (koşullar, döngüler, mantıksal operatörler, küçük uygulamalar). | Python | 📚 Öğrenme |
 
 <br>
 
