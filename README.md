@@ -1,12 +1,10 @@
 ### Merhaba, ben Ramazan 👋
 
-**Backend & Full-Stack Developer.** Çoklu şube ve çoklu kiracılı (multi-tenant) yapılarda gerçek kullanıcı trafiği taşıyan production sistemleri mimariden deploy'a kadar tek başıma sahipleniyorum.
+**Backend & Full-Stack Developer.** Python/Django ile production sistemler geliştiriyor ve mimariden deploy'a kadar tek başıma işletiyorum.
 
-Odak alanlarım: API tasarımı ve veritabanı performansı (composite index'ler, N+1 sorgu eliminasyonu), gerçek zamanlı iletişim (WebSocket tabanlı sipariş/bildirim akışları), asenkron görev işleme ve zamanlama, çok-kiracılı/clean architecture, production güvenliği (rate limiting, HTTPS/CORS, ortam bazlı gizli anahtar yönetimi). Bunları Python/Django ekosisteminde, React/TypeScript frontend'leriyle birlikte hayata geçiriyorum.
+`🏢 Multi-branch/multi-tenant` `⚡ Gerçek zamanlı (WebSocket)` `⚙️ Asenkron (Celery/Redis)` `🗄️ Veritabanı performansı` `🐳 Docker/Linux`
 
-Şu anda **Near East Technology**'de dört eşzamanlı production sisteminin (restoran yönetimi, spor & havuz erişim kontrolü, okul yönetimi) mimarisi, geliştirmesi ve deploy'undan tek başıma sorumluyum. Bunların yanında kendi kişisel/freelance projelerimi de yürütüyorum.
-
-GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş görünüyor — aslında öyle değil. Aşağıda üzerinde çalıştığım projelerin kısa bir özeti var.
+Şu anda **Near East Technology**'de dört eşzamanlı production sisteminden tek başıma sorumluyum; bunun yanında kendi kişisel/freelance projelerimi yürütüyorum. GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş görünüyor — aşağıda ne üzerinde çalıştığımın özeti var.
 
 <br>
 
@@ -26,25 +24,55 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 
 <br>
 
-## 🌟 Bayrak Proje: Restoran Yönetim Sistemi
+## 🌟 Bayrak Projeler
 
-Çoklu şubeli bir restoran zincirinin sipariş akışını uçtan uca yönetmek için tasarladığım, canlı ortamda kullanılan bir platform. Web, kiosk ve call-center kanallarından gelen siparişleri tek bir gerçek zamanlı akışta birleştirip **7 farklı kullanıcı rolüne** (Admin, Call Center, Şube Müdürü, Aşçı, Kurye, Kasiyer, Müşteri) role özel, anlık bilgi akışı sağlıyorum.
+### Restoran Yönetim Sistemi
+
+Çoklu şubeli bir restoran zincirinin sipariş akışını uçtan uca yönetmek için tasarladığım, canlı ortamda kullanılan bir platform. Web, kiosk ve call-center kanallarından gelen siparişleri tek bir gerçek zamanlı akışta birleştirip **7 farklı kullanıcı rolüne** role özel, anlık bilgi akışı sağlıyorum.
+
+`Django · Channels · Celery · Redis · MySQL · React · TypeScript · Docker`
+
+<details>
+<summary>Detaylar</summary>
+<br>
 
 - 🔴 **Senkronizasyon:** Sipariş oluşturulduğu andan teslim edilene kadar her durum değişikliğini (hazırlanıyor → hazır → yolda → teslim edildi) WebSocket üzerinden ilgili role anında yayınlıyorum — sayfa yenilemeye gerek kalmadan mutfak, kurye ve müşteri ekranları senkron kalıyor.
-- 🏗️ **Mimari:** Domain / Application / Infrastructure / Interface olarak katmanlı (Clean) bir mimari kurdum; iş kurallarını (services) veri erişiminden (repository implementasyonları) tamamen izole ettim — bu da test edilebilirliği ve altyapı değişikliklerine karşı dayanıklılığı artırıyor.
+- 🏗️ **Mimari:** Domain / Application / Infrastructure / Interface olarak katmanlı (Clean) bir mimari kurdum; iş kurallarını (services) veri erişiminden (repository implementasyonları) tamamen izole ettim.
 - 🔁 **Şubeler arası operasyon:** Sipariş transferini şubeler arası birinci sınıf bir iş akışı olarak modelledim; yoğunluk/kapasite durumunda sipariş başka bir şubeye anlık devredilebiliyor.
-- 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı bir denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı kurdum — güvenliği sonradan eklenen değil, sistemin bir parçası olarak tasarladım.
+- 🔐 **İleriye dönük güvenlik:** Kritik operasyonlar için ayrı bir denetim (audit) günlüğü, XSS koruması ve otomatik secret rotation altyapısı kurdum.
 - ⚙️ **Asenkron işleyiş:** Bildirim gibi kullanıcıyı bekletmemesi gereken işleri Celery ile arka planda çalıştırıyorum; Redis'i hem cache hem WebSocket mesajlaşma katmanı olarak kullanıyorum.
 
-`Django · DRF · Channels · Celery · Redis · MySQL · React · TypeScript · Docker · Nginx`
+</details>
 
 <br>
 
-## 🔒 Diğer Private Projeler
+### Ramot — Algoritmik Trading Platformu
+
+Her kullanıcının kendi borsa hesabını bağladığı, Binance (kripto) ve XAUUSDT (altın) üzerinde otomatik trading botları çalıştırdığım multi-tenant bir platform. Sinyal güven skorlaması için Anthropic API'yi entegre ederek risk/kaldıraç kararlarını veriye dayalı hale getirdim.
+
+`Django REST + Channels · Celery · Redis · PostgreSQL · React · TypeScript · Anthropic API`
+
+<details>
+<summary>Detaylar</summary>
+<br>
+
+- 🤖 **İki bağımsız bot:** CryptoBot 60 saniyede, GoldBot 5 dakikada bir kendi döngüsünde çalışıyor; Celery beat ile ayrı ayrı zamanlanıyor.
+- 🧠 **AI destekli sinyal skorlama:** RSI/MACD/Bollinger/ATR tabanlı sinyalleri Anthropic API ile güven skoruna çeviriyorum; bu skor doğrudan pozisyon büyüklüğü/kaldıraç kararını besliyor.
+- 🛡️ **Otomatik risk yönetimi:** Trailing stop, likidasyon koruması, günlük zarar ve maksimum drawdown limitleri; altın botunda ayrıca seans (Londra/NY/Asya) ve ADX filtreleri.
+- 🔴 **Gerçek zamanlı dashboard:** Django Channels üzerinden canlı pozisyon ve fiyat akışını React arayüzüne WebSocket ile taşıyorum.
+- 🔐 **Kullanıcı bazlı güvenlik:** Her kullanıcının borsa API anahtarları veritabanında şifreli tutuluyor; JWT + 2FA ile korunuyor.
+- ✅ Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğruladım, kapsamlı backtesting ile destekledim.
+
+</details>
+
+<br>
+
+## 🔒 Diğer Projeler
+
+Bunların dışında üzerinde çalıştığım/çalıştığım 9 private repo'dan öne çıkanlar:
 
 | Proje | Açıklama | Teknolojiler | Durum |
 |---|---|---|---|
-| **Ramot — Algoritmik Trading Platformu** | Binance (kripto) ve XAUUSDT (altın) için otomatik trading botları çalıştıran multi-tenant bir SaaS geliştirdim. RSI/MACD/Bollinger/ATR tabanlı sinyal motorları yazdım, otomatik risk yönetimi (trailing stop, likidasyon koruması, drawdown limitleri) kurdum, sinyal güven skorlaması için Anthropic API'yi entegre ettim ve gerçek zamanlı bir React dashboard geliştirdim. Birden fazla bağımsız hesapta canlı trading ile uçtan uca doğruladım. | Django REST + Channels · Celery · Redis · PostgreSQL · React (TS) · Anthropic API | 🟢 Aktif |
 | **El İşi Üreticileri için Multi-Tenant ERP** | Küçük ölçekli el işi üreticileri için malzeme, ürün, satış ve görev yönetimi sağlayan bir SaaS geliştirdim. Clean Architecture ile katmanlı bir mimari kurdum, JWT auth ve tenant izolasyonu ekledim. | Django REST Framework · React · JWT | 🟢 Aktif |
 | **SaaS Starter Kit** | Multi-tenant SaaS ürünlerinde tekrar kullanmak üzere bir Django + React/TS başlangıç altyapısı (auth, Docker, temel proje iskeleti) geliştirdim. | Django · React (TS) · Docker | 🟡 Bakımda |
 | **Kurumsal Web Sitesi — Oto Lastik Sektörü** | Bir oto lastik firması için kurumsal tanıtım ve yönetim paneli içeren bir web sitesi geliştirdim. | Django · React (TS) | ✅ Teslim edildi |
@@ -52,18 +80,6 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 | **Kişisel Portfolyo** | Kendi Django tabanlı portfolyo sitemi Nginx + systemd servisiyle production'a aldım. | Django · Nginx · Shell | 🟢 Aktif |
 | **100 Days of Python** | Python temellerimi pekiştirmek için hazırladığım Jupyter Notebook tabanlı alıştırma/çalışma defterlerim. | Python · Jupyter Notebook | 📚 Öğrenme |
 | **Python Alıştırmaları** | Temel Python pratik scriptlerim (koşullar, döngüler, mantıksal operatörler, küçük uygulamalar). | Python | 📚 Öğrenme |
-
-<br>
-
-## 📊 Genel Bakış
-
-- 🔒 **9** aktif private proje (üzerine çalışılan tarih aralığı: 09.2025 – 09.2026)
-- **Backend:** Python · Django · Django REST Framework · REST API Design · JWT · 2FA · Role-Based Access Control
-- **Real-Time & Async:** Django Channels · WebSockets · Celery · Redis (Cache / Pub-Sub / Broker)
-- **Veritabanı:** PostgreSQL · MySQL · Şema Tasarımı · Query Optimization (N+1 elimination)
-- **Mimari:** Clean Architecture (Repository & DTO) · Multi-Tenant Architecture · Layered Architecture
-- **Altyapı:** Docker · Docker Compose · Nginx · Linux · Git/GitHub
-- **Frontend:** React · TypeScript · Redux Toolkit · Zustand · TanStack Query · Vite · TailwindCSS
 
 <br>
 
