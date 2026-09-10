@@ -2,6 +2,12 @@
   <img src="assets/banner.svg" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
 </p>
 
+<p align="center">
+  <a href="https://linkedin.com/in/ramazan-karsanba"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
+  <a href="https://ramazankarsanba.com"><img src="https://img.shields.io/badge/Website-111827?style=flat&logo=googlechrome&logoColor=white" alt="Website"/></a>
+  <a href="mailto:rkarsanba0@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white" alt="Email"/></a>
+</p>
+
 <p align="right"><b>🇬🇧 English</b> · <a href="#turkce">🇹🇷 Türkçe</a></p>
 
 <a id="english"></a>
@@ -93,7 +99,7 @@ Beyond these, here are the highlights from the 9 private repos I actively work o
 
 ## 📫 Contact
 
-📧 rkarsanba0@gmail.com
+📧 [rkarsanba0@gmail.com](mailto:rkarsanba0@gmail.com) · 💼 [LinkedIn](https://linkedin.com/in/ramazan-karsanba) · 🌐 [ramazankarsanba.com](https://ramazankarsanba.com)
 
 <br><br>
 
@@ -190,4 +196,4 @@ Bunların dışında üzerinde çalıştığım 9 private repo'dan öne çıkanl
 
 ## 📫 İletişim
 
-📧 rkarsanba0@gmail.com
+📧 [rkarsanba0@gmail.com](mailto:rkarsanba0@gmail.com) · 💼 [LinkedIn](https://linkedin.com/in/ramazan-karsanba) · 🌐 [ramazankarsanba.com](https://ramazankarsanba.com)
