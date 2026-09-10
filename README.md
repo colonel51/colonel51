@@ -1,6 +1,6 @@
 ### Merhaba, ben Ramazan 👋
 
-**Backend & Full-Stack Developer.** Python, Django ve Django REST Framework ile production sistemler kuruyor ve işletiyorum; odak noktam backend mimarisi, API tasarımı, gerçek zamanlı iletişim (Django Channels/WebSocket), asenkron işleme (Celery/Redis) ve multi-tenant/clean architecture.
+**Backend & Full-Stack Developer.** Python, Django ve Django REST Framework ile production sistemler kuruyor ve işletiyorum; odak noktam backend mimarisi, API tasarımı, veritabanı performansı, gerçek zamanlı iletişim (Django Channels/WebSocket), asenkron işleme (Celery/Redis) ve multi-tenant/clean architecture.
 
 Şu anda **Near East Technology**'de dört eşzamanlı production sisteminin (restoran yönetimi, spor & havuz erişim kontrolü, okul yönetimi) mimarisi, geliştirmesi ve deploy'undan tek başıma sorumluyum. Bunların yanında kendi kişisel/freelance projelerimi de yürütüyorum.
 
