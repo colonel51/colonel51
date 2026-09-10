@@ -60,14 +60,39 @@ A platform I designed to run a multi-branch restaurant chain's order flow end-to
 
 ```mermaid
 graph TD
-    Client[Web / Kiosk / Call Center] -->|POST order| API(Django REST API)
-    API -->|Write| DB[(MySQL)]
-    API -->|Async task| Celery[Celery Worker]
-    API -->|Publish event| Redis[(Redis Pub/Sub)]
-    Celery -->|SMS / Email| Notif[Notification Service]
-    Redis -->|Broadcast| Channels[Django Channels]
-    Channels -->|WebSocket: preparing/ready| Kitchen[Kitchen Screen]
-    Channels -->|WebSocket: on the way| Courier[Courier App]
+    %% Client interfaces
+    Client[Web / Kiosk / Call Center] -->|HTTPS| Nginx[Nginx Reverse Proxy + SSL]
+    Nginx -->|HTTP| API(Django REST API)
+
+    %% Authentication
+    API -.->|JWT Auth| Auth[SimpleJWT Auth]
+
+    %% Data layer
+    API -->|Write order| DB[(MySQL)]
+
+    %% 1) INSTANT BROADCAST - synchronous, independent of Celery
+    API -->|"async_to_sync group_send()"| ChannelLayer[Django Channels Layer]
+    ChannelLayer <-->|DB0: Channel Layer| Redis0[(Redis DB0)]
+    ChannelLayer -->|WebSocket: Order Preparing| Kitchen[Kitchen Screen]
+    ChannelLayer -->|WebSocket: Order On The Way| Courier[Courier Screen - Web]
+    ChannelLayer -->|WebSocket: Status Update| CustomerWS[Customer Order Tracking]
+    ChannelLayer -->|WebSocket: All Orders| AdminWS[Admin / Call Center Panel]
+
+    %% 2) ASYNC NOTIFICATION - via Celery
+    API -->|".delay() enqueue task"| Broker[(Redis DB2 - Celery Broker)]
+    Broker --> Celery[Celery Worker]
+    Celery -->|Send email| Mail[SMTP / Mail Service]
+    Celery -->|Send SMS| SMSGW[SMS Gateway]
+    Celery -->|In-App Notification| NotifSvc[Notification Service]
+    NotifSvc -->|Write to DB| DB
+    NotifSvc -->|WebSocket Push| ChannelLayer
+    ChannelLayer -->|WebSocket: Notification| UserBell[User Notification Bell]
+
+    Mail -->|Email| CustomerInbox[Customer Inbox]
+    SMSGW -->|SMS| CustomerPhone[Customer Phone]
+
+    %% Cache/Session
+    API -.->|Cache / Session: Redis DB1| Redis1[(Redis DB1)]
 ```
 
 </details>
@@ -95,14 +120,26 @@ A multi-tenant platform where each user connects their own exchange account, run
 
 ```mermaid
 graph LR
-    Beat[Celery Beat] -->|60s / 5min trigger| Engine(Signal & Trade Engine)
-    Engine <-->|price & orders| Binance[Exchange API]
-    Engine -->|indicator data| AI[Anthropic API]
-    AI -->|confidence score| Engine
-    Engine -->|state update| DB[(PostgreSQL)]
-    Engine -->|publish state| Redis[(Redis)]
-    Redis -->|WebSocket| Channels[Django Channels]
-    Channels -->|live positions & price| React[React Dashboard]
+    subgraph Trading Cycle
+    Beat[Celery Beat] -->|60s / 5min| Engine(Signal & Trade Engine)
+    Engine -->|REST: kline/price, order| BinanceREST[Binance REST API]
+    Engine -->|Indicator data| AI[Anthropic API]
+    AI -->|Confidence score| Engine
+    Engine -->|Write position/trade| DB[(PostgreSQL)]
+    Engine -->|group_send| ChannelLayer
+    end
+
+    subgraph Live Price Stream
+    BinanceWS[Binance WebSocket] --> MDWorker[market_data / user_stream workers]
+    MDWorker -->|pub/sub| Redis[(Redis)]
+    Redis --> GatewayConsumer[RealtimeGatewayConsumer]
+    end
+
+    ChannelLayer[Django Channels layer -Redis-] --> Consumers[Bot/Task Consumers]
+    Consumers -->|WebSocket| React[React Dashboard]
+    GatewayConsumer -->|WebSocket| React
+
+    Redis -.->|broker| Beat
 ```
 
 </details>
@@ -185,14 +222,39 @@ Beyond these, here are the highlights from the 9 private repos I actively work o
 
 ```mermaid
 graph TD
-    Client[Web / Kiosk / Call Center] -->|Sipariş POST| API(Django REST API)
-    API -->|Veri yazma| DB[(MySQL)]
-    API -->|Asenkron görev| Celery[Celery Worker]
-    API -->|Event publish| Redis[(Redis Pub/Sub)]
-    Celery -->|SMS / E-posta| Notif[Bildirim Servisi]
-    Redis -->|Broadcast| Channels[Django Channels]
-    Channels -->|WebSocket: hazırlanıyor/hazır| Kitchen[Mutfak Ekranı]
-    Channels -->|WebSocket: yolda| Courier[Kurye Uygulaması]
+    %% Kullanıcı Arayüzleri
+    Client[Web / Kiosk / Call Center] -->|HTTPS| Nginx[Nginx Reverse Proxy + SSL]
+    Nginx -->|HTTP| API(Django REST API)
+
+    %% Kimlik Doğrulama
+    API -.->|JWT Doğrulama| Auth[SimpleJWT Auth]
+
+    %% Veri Katmanı
+    API -->|Sipariş Kaydı| DB[(MySQL)]
+
+    %% 1) ANLIK YAYIN - Celery'den bağımsız, senkron
+    API -->|"async_to_sync group_send()"| ChannelLayer[Django Channels Layer]
+    ChannelLayer <-->|DB0: Channel Layer| Redis0[(Redis DB0)]
+    ChannelLayer -->|WebSocket: Sipariş Hazırlanıyor| Kitchen[Mutfak Ekranı]
+    ChannelLayer -->|WebSocket: Sipariş Yolda| Courier[Kurye Ekranı - Web]
+    ChannelLayer -->|WebSocket: Durum Güncellemesi| CustomerWS[Müşteri Sipariş Takibi]
+    ChannelLayer -->|WebSocket: Tüm Siparişler| AdminWS[Admin / Call Center Paneli]
+
+    %% 2) ASENKRON BİLDİRİM - Celery üzerinden
+    API -->|".delay() task kuyruğa ekle"| Broker[(Redis DB2 - Celery Broker)]
+    Broker --> Celery[Celery Worker]
+    Celery -->|Email gönder| Mail[SMTP / Mail Servisi]
+    Celery -->|SMS gönder| SMSGW[SMS Gateway]
+    Celery -->|In-App Bildirim| NotifSvc[Notification Service]
+    NotifSvc -->|DB Kayıt| DB
+    NotifSvc -->|WebSocket Push| ChannelLayer
+    ChannelLayer -->|WebSocket: Bildirim| UserBell[Kullanıcı Bildirim Zili]
+
+    Mail -->|E-posta| CustomerInbox[Müşteri E-postası]
+    SMSGW -->|SMS| CustomerPhone[Müşteri Telefonu]
+
+    %% Cache/Session
+    API -.->|Cache / Session: Redis DB1| Redis1[(Redis DB1)]
 ```
 
 </details>
@@ -220,14 +282,26 @@ Her kullanıcının kendi borsa hesabını bağladığı, Binance (kripto) ve XA
 
 ```mermaid
 graph LR
-    Beat[Celery Beat] -->|60sn / 5dk tetikleme| Engine(Sinyal & Trade Motoru)
-    Engine <-->|fiyat & işlem| Binance[Borsa API]
-    Engine -->|indikatör verisi| AI[Anthropic API]
-    AI -->|güven skoru| Engine
-    Engine -->|durum güncelleme| DB[(PostgreSQL)]
-    Engine -->|state publish| Redis[(Redis)]
-    Redis -->|WebSocket| Channels[Django Channels]
-    Channels -->|canlı pozisyon & fiyat| React[React Dashboard]
+    subgraph Trading Cycle
+    Beat[Celery Beat] -->|60s / 5dk| Engine(Sinyal & Trade Motoru)
+    Engine -->|REST: kline/fiyat, emir| BinanceREST[Binance REST API]
+    Engine -->|İndikatör verisi| AI[Anthropic API]
+    AI -->|Güven skoru| Engine
+    Engine -->|Pozisyon/trade yaz| DB[(PostgreSQL)]
+    Engine -->|group_send| ChannelLayer
+    end
+
+    subgraph Live Price Stream
+    BinanceWS[Binance WebSocket] --> MDWorker[market_data / user_stream workers]
+    MDWorker -->|pub/sub| Redis[(Redis)]
+    Redis --> GatewayConsumer[RealtimeGatewayConsumer]
+    end
+
+    ChannelLayer[Django Channels layer -Redis-] --> Consumers[Bot/Task Consumers]
+    Consumers -->|WebSocket| React[React Dashboard]
+    GatewayConsumer -->|WebSocket| React
+
+    Redis -.->|broker| Beat
 ```
 
 </details>
