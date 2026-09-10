@@ -18,7 +18,7 @@
 
 `🏢 Multi-branch/multi-tenant` `⚡ Real-time (WebSocket)` `⚙️ Async (Celery/Redis)` `🗄️ Database performance` `🐳 Docker/Linux`
 
-I'm currently solely responsible for the architecture, development, and deployment of four concurrent production systems at **Near East Technology**, alongside my own personal/freelance projects. My GitHub looks empty from the outside because most of it is **private** — here's a summary of what I've actually been building.
+I'm currently working on four concurrent production systems at **Near East Technology** — restaurant management, sports & pool facility access control, and school administration — alongside my own personal/freelance projects. My GitHub looks empty from the outside because most of it is **private** — here's a summary of what I've actually been building.
 
 <br>
 
@@ -180,7 +180,7 @@ Beyond these, here are the highlights from the 9 private repos I actively work o
 
 `🏢 Multi-branch/multi-tenant` `⚡ Gerçek zamanlı (WebSocket)` `⚙️ Asenkron (Celery/Redis)` `🗄️ Veritabanı performansı` `🐳 Docker/Linux`
 
-Şu anda **Near East Technology**'de dört eşzamanlı production sisteminden tek başıma sorumluyum; bunun yanında kendi kişisel/freelance projelerimi yürütüyorum. GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş görünüyor — aşağıda ne üzerinde çalıştığımın özeti var.
+Şu anda **Near East Technology**'de dört eşzamanlı production sistemi üzerinde çalışıyorum — restoran yönetimi, spor & havuz erişim kontrolü ve okul yönetimi; bunun yanında kendi kişisel/freelance projelerimi yürütüyorum. GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş görünüyor — aşağıda ne üzerinde çalıştığımın özeti var.
 
 <br>
 
