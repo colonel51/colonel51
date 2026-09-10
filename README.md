@@ -43,8 +43,12 @@ GitHub profilim çoğunlukla **private repo** içerdiği için dışarıdan boş
 ## 📊 Genel Bakış
 
 - 🔒 **9** aktif private proje (üzerine çalışılan tarih aralığı: 09.2025 – 09.2026)
-- 🧩 Ağırlıklı diller: **TypeScript** (~%42) · **Python** (~%34) · **CSS** (~%9) · **JavaScript** (~%6)
-- 🏗️ Backend'de **Django/DRF**, frontend'de **React + TypeScript**, altyapıda **Docker · PostgreSQL/MySQL · Redis**
+- **Backend:** Python · Django · Django REST Framework · REST API Design · JWT · 2FA · Role-Based Access Control
+- **Real-Time & Async:** Django Channels · WebSockets · Celery · Redis (Cache / Pub-Sub / Broker)
+- **Veritabanı:** PostgreSQL · MySQL · Şema Tasarımı · Query Optimization (N+1 elimination)
+- **Mimari:** Clean Architecture (Repository & DTO) · Multi-Tenant Architecture · Layered Architecture
+- **Altyapı:** Docker · Docker Compose · Nginx · Linux · Git/GitHub
+- **Frontend:** React · TypeScript · Redux Toolkit · Zustand · TanStack Query · Vite · TailwindCSS
 
 <br>
 
