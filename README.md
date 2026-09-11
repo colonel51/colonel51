@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" width="100%" alt="Ramazan Karsanba — Backend & Full-Stack Developer" />
+  <img src="assets/banner.svg" width="100%" alt="Ramazan Karsanba — Computer Engineer & Full-Stack Developer" />
 </p>
 
 <p align="center">
@@ -176,7 +176,7 @@ Beyond these, here are the highlights from the 9 private repos I actively work o
 
 ### 👋 Merhaba, ben Ramazan
 
-**Backend & Full-Stack Developer.** Python/Django ile production sistemler geliştiriyor ve mimariden deploy'a kadar tek başıma işletiyorum.
+**Bilgisayar Mühendisi & Full-Stack Developer.** Python/Django ile production sistemler geliştiriyor ve mimariden deploy'a kadar tek başıma işletiyorum.
 
 `🏢 Multi-branch/multi-tenant` `⚡ Gerçek zamanlı (WebSocket)` `⚙️ Asenkron (Celery/Redis)` `🗄️ Veritabanı performansı` `🐳 Docker/Linux`
 
