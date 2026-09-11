@@ -14,7 +14,7 @@
 
 ### 👋 Hi, I'm Ramazan
 
-**Backend & Full-Stack Developer.** I build production systems with Python/Django and own them end-to-end, from architecture to deployment.
+**Computer Engineer & Full-Stack Developer.** I build production systems with Python/Django and own them end-to-end, from architecture to deployment.
 
 `🏢 Multi-branch/multi-tenant` `⚡ Real-time (WebSocket)` `⚙️ Async (Celery/Redis)` `🗄️ Database performance` `🐳 Docker/Linux`
 
